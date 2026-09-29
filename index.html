@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Pixel Demo Store</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f7fb;color:#172033}
+header{background:#102a43;color:white;padding:25px;text-align:center}
+main{max-width:900px;margin:30px auto;padding:20px}
+.card{background:white;border-radius:12px;padding:25px;margin:20px 0;box-shadow:0 4px 15px #0001}
+button{border:0;padding:12px 20px;margin:6px;border-radius:7px;cursor:pointer;background:#1677ff;color:white}
+button.secondary{background:#20a464}
+#status{padding:15px;background:#eef6ff;border-radius:8px}
+</style>
+<!-- META PIXEL: replace YOUR_PIXEL_ID with your real Pixel/Dataset ID -->
+<script>
+  // Meta Pixel base code will be pasted here after you create your Pixel.
+</script>
+</head>
+<body>
+<header><h1>Demo Store</h1><p>Meta Pixel & Event Testing Website</p></header>
+<main>
+<div class="card">
+<h2>Demo Product</h2>
+<p>Premium Digital Marketing Course — $49</p>
+<button onclick="viewProduct()">View Product</button>
+<button class="secondary" onclick="generateLead()">Get Free Consultation</button>
+<button onclick="purchase()">Buy Now</button>
+</div>
+<div class="card">
+<h2>Event Testing</h2>
+<p>Click the buttons above and then check Events Manager → Test Events.</p>
+<div id="status">Waiting for an event...</div>
+</div>
+</main>
+<script>
+function sendEvent(name, params={}){
+  if(typeof fbq === 'function'){
+    fbq('track', name, params);
+  }
+  document.getElementById('status').textContent =
+    'Event sent: ' + name + ' ' + JSON.stringify(params);
+}
+function viewProduct(){
+  sendEvent('ViewContent',{
+    content_name:'Demo Digital Marketing Course',
+    content_type:'product',
+    value:49.00,
+    currency:'USD'
+  });
+}
+function generateLead(){
+  sendEvent('Lead',{content_name:'Free Consultation'});
+}
+function purchase(){
+  sendEvent('Purchase',{
+    value:49.00,
+    currency:'USD',
+    content_name:'Demo Digital Marketing Course'
+  });
+}
+</script>
+</body>
+</html>
